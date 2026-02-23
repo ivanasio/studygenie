@@ -1,8 +1,14 @@
-from openai import OpenAI
-import streamlit as st
 import os
-# Используем ключ из Streamlit Secrets
-client = OpenAI(api_key=os.environ["OPENAI_KEY"])
+import streamlit as st
+from openai import OpenAI
+
+api_key = st.secrets["OPENAI_KEY"]
+
+if not api_key:
+    st.error("OPENAI_KEY не найден. Добавь его в Streamlit Secrets.")
+    st.stop()
+
+client = OpenAI(api_key=api_key)
 
 st.title("StudyGenie 🤖")
 
@@ -23,3 +29,4 @@ if topic:
             st.write(response.choices[0].message.content)
         except Exception as e:
             st.error(f"Произошла ошибка при запросе к OpenAI: {e}")
+
