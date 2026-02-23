@@ -1,4 +1,4 @@
-import OpenAI
+from openai import OpenAI
 import streamlit as st
 import os
 # Используем ключ из Streamlit Secrets
